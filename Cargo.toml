@@ -1,0 +1,17 @@
+[package]
+name = "tinysound"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+crate-type = ["lib"]
+doc = true
+path = "src/lib.rs"
+
+[dependencies]
+term_size = "0.3.2"
+rand = "0.8.5"
+libpulse-binding = "2.27.1"
+thiserror = "1.0.38"
