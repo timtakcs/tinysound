@@ -28,10 +28,14 @@ pub fn test() {
 
 pub struct Stream {
     recorder: DesktopAudioRecorder,
+    buffer: Vec<i16>,
+    buffer_size: usize,
 }
 
 impl Stream {
-    pub fn new() -> Self {
-        Stream {recorder: DesktopAudioRecorder::new("Audio Stream").unwrap()}
+    pub fn new(size: usize) -> Self {
+        Stream {recorder: DesktopAudioRecorder::new("Audio Stream").unwrap(), 
+                buffer: Vec::<i16>::new(), 
+                buffer_size: size}
     }
 }
