@@ -1,24 +1,35 @@
 use std::vec;
 use rand::Rng;
+use std::cmp;
 use std::{thread, time};
 
 extern crate term_size;
 
-fn print_bars(heights: &[i32], h: usize, w: usize) {
+pub fn print_bars(heights: &mut [i16], h: usize, w: usize) {
     let mut height_strings: Vec<String> = Vec::new();
 
-    let num = heights.len();
+    let num = heights.len() - 1;
+
+    let mut max_freq = 0;
+
+    for j in 0..num {
+        max_freq = cmp::max(max_freq, heights[j]);
+    } for k in 0..num {
+        heights[k] /= (max_freq / h as i16) + 1;
+    }
 
     let mut outstr = String::from("");
     let mut idx = 0;
-    let bar_width = w / (2 * num + 1);
+    let bar_width = w / (2 * num);
 
     for i in 0..h {
-        for j in 0..w -  bar_width{
-            idx = j / 12;
+        for j in 0..w - bar_width{
+            idx = j / bar_width;
             
-            if idx % 2 == 1  && 60 - heights[idx / 2] <= i.try_into().unwrap(){
-                outstr.push('.');
+            // println!("{}", idx);
+
+            if idx % 2 == 1  && h as i16 - heights[idx / 2] <= i.try_into().unwrap(){
+                outstr.push('■');
             } else {
                 outstr.push(' ');
             }    
@@ -36,7 +47,7 @@ pub fn test() {
 
     if let Some((w, h)) = term_size::dimensions_stdout() {
         for i in 0..60 {
-            print_bars(heights.as_slice(), h, w);
+            print_bars(heights.as_mut_slice(), h, w);
 
             for i in 0..heights.len() {
                 let factor = 1;

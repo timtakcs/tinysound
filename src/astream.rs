@@ -20,10 +20,6 @@ pub fn test() {
     }
 
     println!("{}", d.len());
-
-    // for i in 0..d.len() {
-    //     println!("{:?}", d[i]);
-    // }
 }
 
 pub struct Stream {
@@ -38,4 +34,6 @@ impl Stream {
                 buffer: Vec::<i16>::new(), 
                 buffer_size: size}
     }
+
+
 }
